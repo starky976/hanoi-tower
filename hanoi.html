@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/hanoi.css">
+    <title>Vue : ハノイの塔</title>
+</head>
+<body>
+    <main id="hanoi">
+        <div class="wrap">
+            <h1>ハノイの塔</h1>
+            <select name="index" v-model.number = "maxBar" v-bind:disabled = "ables" v-cloak>
+                <option disabled value="">Please select one</option>
+                <option v-for = "n in 9" v-bind:value = "n" @change = "selectIndex(n)">{{ n }} 個作成</option>
+            </select>
+            <button v-bind:disabled = "ables" @click = "createBar()">Game Start</button>
+            <button v-bind:disabled = "!ables" @click = "giveup()">Give Up</button>
+            <ul class="area-list" :class = "`count-${maxBar}`">
+                <li class="area" v-for = "(item, index) in items" :key = "index" @click = "onclick(index)" :data-area="index + 1">
+                    <ul class="bar-list" ref="barList">
+                        <li class="bar" v-for = "(i, index) in item" :key = "index" :data-bar = "i" ></li>
+                    </ul>
+                    <span class="goal" v-if = "index == Object.keys(items).length - 1">ここに全部移動できるかな？？　
+                    </span>
+                </li>
+            </ul>
+            <div>移動回数:
+                <span v-html="moveCount"></span>
+            </div>
+        </div>
+    </main>
+    <script src="./js/vue3.js"></script>
+    <script src="./js/hanoi.js"></script>
+</body>
+</html>
